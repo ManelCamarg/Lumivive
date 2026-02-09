@@ -8,7 +8,74 @@
 </head>
 <body>
 
+    <header><!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumière - Smart Mirror</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
     <header>
+        <h1>Lumière Studio</h1>
+        <p>Selecione o ambiente para calibrar sua maquiagem</p>
+    </header>
+
+    <button id="start-camera-btn" onclick="startCamera()">
+        📸 Ativar Espelho Inteligente
+    </button>
+
+    <div class="mirror-container hidden" id="mirrorContainer">
+        <video id="video" autoplay playsinline></video>
+        <div class="video-overlay" id="videoOverlay"></div>
+    </div>
+
+    <div class="controls hidden" id="controlsContainer">
+        <button class="btn-mode active" onclick="setMode('day', this)">
+            <span class="btn-icon">☀️</span>
+            <span>Dia</span>
+        </button>
+        <button class="btn-mode" onclick="setMode('sunset', this)">
+            <span class="btn-icon">🌅</span>
+            <span>Tarde</span>
+        </button>
+        <button class="btn-mode" onclick="setMode('night', this)">
+            <span class="btn-icon">🌙</span>
+            <span>Noite</span>
+        </button>
+        <button class="btn-mode" onclick="setMode('studio', this)">
+            <span class="btn-icon">💡</span>
+            <span>Studio</span>
+        </button>
+    </div>
+
+    <div class="advice-panel hidden" id="advicePanel">
+        <h3 class="advice-title" id="adviceTitle">Dicas para Luz do Dia</h3>
+        <p class="advice-text" id="adviceText">
+            A luz natural revela tudo. Aposte em uma pele leve e tons neutros.
+        </p>
+        
+        <div class="scan-wrapper">
+            <div class="scan-line"></div>
+        </div>
+
+        <div class="palette-section">
+            <span class="palette-label">Paleta Recomendada:</span>
+            <div class="palette-container">
+                <div class="color-swatch"></div>
+                <div class="color-swatch"></div>
+                <div class="color-swatch"></div>
+                <div class="color-swatch"></div>
+                <div class="color-swatch"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
         <h1>Lumivive Studio</h1>
         <p style="color: #888;">Selecione o ambiente para visualizar a paleta ideal</p>
     </header>
@@ -59,4 +126,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
