@@ -1,0 +1,141 @@
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #ffffff;
+    --accent-color: #00d2ff;
+    
+    --light-day: rgba(255, 255, 255, 0.9);
+    --light-night: rgba(46, 49, 146, 0.6);
+    --light-sunset: rgba(255, 140, 0, 0.7);
+    --light-studio: rgba(255, 240, 220, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+
+body { background-color: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; position: relative; overflow-x: hidden; }
+
+/* Linhas Decorativas Azuis - Lado Esquerdo */
+body::before {
+    content: '';
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    background: 
+        repeating-linear-gradient(
+            135deg,
+            rgba(0, 210, 255, 0.2) 0px,
+            rgba(0, 210, 255, 0.2) 3px,
+            transparent 3px,
+            transparent 40px
+        );
+    animation: rainDiagonal 4s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.5));
+}
+
+/* Linhas Decorativas Azuis - Lado Direito */
+body::after {
+    content: '';
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 1920px;
+    height: 1080px;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            rgba(0, 210, 255, 0.2) 0px,
+            rgba(0, 210, 255, 0.2) 3px,
+            transparent 3px,
+            transparent 40px
+        );
+    animation: rainDiagonalRight 4s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.5));
+}
+
+header { text-align: center; margin-bottom: 20px; position: relative; z-index: 2; }
+
+h1 { font-weight: 300; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; background: linear-gradient(90deg, #fff, var(--accent-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* Espelho e Vídeo */
+.mirror-container { position: relative; width: 100%; max-width: 600px; background: #000; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 4px solid #333; transition: border-color 0.5s, box-shadow 0.5s; }
+video { width: 100%; height: auto; display: block; transform: scaleX(-1); opacity: 0; transition: opacity 1s; }
+.video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; transition: background 0.5s; z-index: 10; }
+
+/* Modos de Luz */
+.mirror-container.mode-day { border-color: #fff; box-shadow: 0 0 50px var(--light-day), inset 0 0 20px var(--light-day); }
+.mirror-container.mode-night { border-color: #4a5eff; box-shadow: 0 0 60px var(--light-night), inset 0 0 30px var(--light-night); }
+.mirror-container.mode-sunset { border-color: #ff8c00; box-shadow: 0 0 60px var(--light-sunset), inset 0 0 30px var(--light-sunset); }
+.mirror-container.mode-studio { border-color: #fff0db; box-shadow: 0 0 80px var(--light-studio), inset 0 0 40px var(--light-studio); }
+
+/* Controles */
+.controls { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; width: 100%; max-width: 600px; }
+@media (min-width: 600px) { .controls { grid-template-columns: repeat(4, 1fr); } }
+
+.btn-mode { background: var(--card-bg); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+.btn-mode:hover { transform: translateY(-2px); background: #2a2a2a; }
+.btn-mode.active { border-color: var(--accent-color); background: #252525; box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
+.btn-icon { font-size: 1.5rem; }
+
+/* Painel de Dicas e Paleta */
+.advice-panel { margin-top: 25px; padding: 20px; background: var(--card-bg); border-radius: 12px; max-width: 600px; width: 100%; border-left: 4px solid var(--accent-color); animation: fadeIn 0.5s ease-in-out; }
+.advice-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; color: var(--accent-color); }
+.advice-text { font-size: 0.95rem; line-height: 1.5; color: #ccc; margin-bottom: 20px; }
+
+/* ESTILOS NOVOS DA PALETA */
+.palette-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
+.palette-container { display: flex; gap: 12px; justify-content: flex-start; align-items: center; }
+.color-swatch {
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    background-color: #444;
+    transition: background-color 0.5s ease, transform 0.2s;
+    cursor: pointer;
+}
+.color-swatch:hover { transform: scale(1.15); border-color: #fff; }
+
+#start-camera-btn { padding: 15px 30px; background: linear-gradient(45deg, #00d2ff, #3a7bd5); color: white; border: none; border-radius: 30px; font-size: 1.1rem; cursor: pointer; margin-top: 50px; position: relative; z-index: 2; box-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
+#start-camera-btn:hover { opacity: 0.9; transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 210, 255, 0.8); }
+.hidden { display: none !important; }
+
+/* Animações de Brilho */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+@keyframes rainDiagonal {
+    0% { transform: translateX(-1920px) translateY(-1080px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes rainDiagonalRight {
+    0% { transform: translateX(1920px) translateY(-1080px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+/* Efeito de Partículas Flutuantes */
+.controls { position: relative; z-index: 2; }
+.advice-panel { position: relative; z-index: 2; }
+.mirror-container { position: relative; z-index: 2; }
+
+/* Linhas Brilhantes Decorativas */
+@keyframes floatRight {
+    0% { transform: translateX(-100px) translateY(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(100px) translateY(-50px); opacity: 0; }
+}
+
+/* Efeito de Background Animado Adicional */
+body > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Glow Effects nos Elementos */
+.color-swatch { transition: background-color 0.5s ease, transform 0.2s, box-shadow 0.3s ease; }
+.color-swatch:hover { box-shadow: 0 4px 15px rgba(0, 210, 255, 0.6), 0 4px 6px rgba(0,0,0,0.3); }
